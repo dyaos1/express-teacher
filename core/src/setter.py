@@ -14,7 +14,7 @@ import chromadb.utils.embedding_functions as embedding_functions
 
 
 # chromadb client init
-client = chromadb.HttpClient(settings=Settings(allow_reset=True))
+client = chromadb.HttpClient(host='localhost', port=8002, settings=Settings(allow_reset=True))
 client.reset()
 
 
@@ -32,6 +32,7 @@ sitelist = sitelist()
 
 
 for idx, val in enumerate(sitelist):
+    print(f"starting {idx}th document")
     loader = WebBaseLoader(val)
     data = loader.load()
 

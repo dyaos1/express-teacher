@@ -11,7 +11,7 @@ from langchain.chains.combine_documents import create_stuff_documents_chain
 
 def getter(question: str):
     # client
-    client = chromadb.HttpClient(settings=Settings(allow_reset=True))
+    client = chromadb.HttpClient(host="localhost", port=8002, settings=Settings(allow_reset=True))
 
 
     # embedding function

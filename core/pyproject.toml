@@ -2,7 +2,7 @@
 name = "core"
 version = "0.1.0"
 description = ""
-authors = ["DESKTOP-AN010CN\\Flzomb <spark3840@gmail.com>"]
+authors = ["Flzomb <spark3840@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]

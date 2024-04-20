@@ -13,11 +13,18 @@ def read_root():
     return {"answer": f"{answer}"}
 
 
+class ChatRequest(BaseModel):
+    text: str
+    type: str
+
+
 class Request(BaseModel):
     question: str
+    history: list[ChatRequest]
 
 
 @app.post("/")
 def read_item(req: Request):
     answer = getter(req.question)
+    print(req.history)
     return {"answer": f"{answer}"}
