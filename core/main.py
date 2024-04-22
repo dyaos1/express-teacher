@@ -2,21 +2,14 @@ from typing import Union
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-from src.getter import getter
+from src.history_aware_getter import history_aware_getter
 
 app = FastAPI()
-
-
-@app.get("/test")
-def read_root():
-    answer = getter("tell me about middleware")
-    return {"answer": f"{answer}"}
 
 
 class ChatRequest(BaseModel):
     text: str
     type: str
-
 
 class Request(BaseModel):
     question: str
@@ -25,6 +18,5 @@ class Request(BaseModel):
 
 @app.post("/")
 def read_item(req: Request):
-    answer = getter(req.question)
-    print(req.history)
-    return {"answer": f"{answer}"}
+    answer = history_aware_getter(req.question, req.history)
+    return { "answer": answer }

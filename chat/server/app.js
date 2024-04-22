@@ -27,11 +27,11 @@ io.on("connection", (socket) => {
       .then((res) => res.json())
       .then((data) => {
         // console.log(data)
-        io.emit('message', `${data.answer}}`)
+        io.emit('message', `${data.answer}`)
       })
       .catch((error) => console.log(error.message));
 
-    // console.log(text)
+    console.log(text)
     // io.emit('message', `server: u just said ${text.message}`)
   })
 });

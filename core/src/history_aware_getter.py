@@ -9,7 +9,7 @@ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.chains.combine_documents import create_stuff_documents_chain
 
 
-def getter():
+def history_aware_getter(question, history):
     # client
     client = chromadb.HttpClient(host="localhost", port=8002, settings=Settings(allow_reset=True))
 
@@ -72,20 +72,33 @@ def getter():
 
     chat_history = []
 
-    question = "What is middleware?"
-    print(f"question: {question}")
-    ai_msg_1 = rag_chain.invoke({"input": question, "chat_history": chat_history})
-    print("answer: ", ai_msg_1["answer"])
-    chat_history.extend([HumanMessage(content=question), ai_msg_1["answer"]])
+    for i in history:
+        if i.type == 'client':
+            chat_history.extend([HumanMessage(content=i.text)])
+        if i.type == 'server':
+            chat_history.extend([i.text])
+
+    print(chat_history)
     
+    the_answer = rag_chain.invoke({"input": question, "chat_history": chat_history})
 
-    second_question = "방금 한 말 한국어로 다시 설명해줄래??"
-    print(f"question: {second_question}")
-    ai_msg_2 = rag_chain.invoke({"input": second_question, "chat_history": chat_history})
-    print("answer: ", ai_msg_2["answer"])
+    # question = "What is middleware?"
+    # print(f"question: {question}")
+    # ai_msg_1 = rag_chain.invoke({"input": question, "chat_history": chat_history})
+    # print("answer: ", ai_msg_1["answer"])
+    # chat_history.extend([HumanMessage(content=question), ai_msg_1["answer"]])
+    
+    # second_question = "방금 한 말 한국어로 다시 설명해줄래??"
+    # print(f"question: {second_question}")
+    # ai_msg_2 = rag_chain.invoke({"input": second_question, "chat_history": chat_history})
+    # print("answer: ", ai_msg_2["answer"])
 
-    return ai_msg_2["answer"]
+    # print(chat_history)
+
+    # return ai_msg_2["answer"]
+
+    return the_answer["answer"]
 
 if __name__ == "__main__":
-    getter()
+    history_aware_getter()
     
