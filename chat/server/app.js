@@ -17,7 +17,7 @@ io.on("connection", (socket) => {
       "question": text.message,
       "history": [...text.chat_history]
     }
-    fetch('http://localhost:8001', {
+    fetch('http://core:8001', {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -31,9 +31,11 @@ io.on("connection", (socket) => {
       })
       .catch((error) => console.log(error.message));
 
-    console.log(text)
+    // console.log(text)
     // io.emit('message', `server: u just said ${text.message}`)
   })
 });
 
-httpServer.listen(3001);
+httpServer.listen(3001, () => {
+  console.log(`api server listening on port 3001`)
+});

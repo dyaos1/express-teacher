@@ -57,7 +57,8 @@ const sendMessage = () => {
   // chat history 숫자 제한하기
   let chat_history = []
   const transactionMessagesLen = transactionMessages.length
-  if(transactionMessagesLen > 3) {
+  if(transactionMessagesLen > 4) {
+    chat_history.push(transactionMessages[transactionMessagesLen-4])
     chat_history.push(transactionMessages[transactionMessagesLen-3])
     chat_history.push(transactionMessages[transactionMessagesLen-2])
     chat_history.push(transactionMessages[transactionMessagesLen-1])

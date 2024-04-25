@@ -1,0 +1,34 @@
+services:
+  server:
+    build:
+      context: ./chat/server
+    hostname: server
+    depends_on:
+      - core
+    ports:
+      - 3001:3001
+
+  ui:
+    build:
+      context: ./chat/ui
+    depends_on:
+      - server
+    ports:
+      - 3002:3002
+
+  core:
+    hostname: core
+    build:
+      context: ./core
+    depends_on:
+      - chroma
+    ports:
+      - 8001:8001
+
+  chroma:
+    hostname: chroma
+    image: chromadb/chroma
+    environment:
+      - ALLOW_RESET=true
+    ports:
+      - 8000:8000

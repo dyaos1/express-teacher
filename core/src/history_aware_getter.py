@@ -11,7 +11,7 @@ from langchain.chains.combine_documents import create_stuff_documents_chain
 
 def history_aware_getter(question, history):
     # client
-    client = chromadb.HttpClient(host="localhost", port=8002, settings=Settings(allow_reset=True))
+    client = chromadb.HttpClient(host="chroma", port=8000, settings=Settings(allow_reset=True))
 
 
     # embedding function
