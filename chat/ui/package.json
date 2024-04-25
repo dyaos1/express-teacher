@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "WS_NO_UTF_8_VALIDATE=true next dev -p 3002",
     "build": "next build",
-    "start": "next start",
+    "start": "WS_NO_UTF_8_VALIDATE=true next start -p 3002",
     "lint": "next lint"
   },
   "dependencies": {
